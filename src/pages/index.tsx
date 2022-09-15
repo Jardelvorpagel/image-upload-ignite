@@ -10,9 +10,7 @@ import { Error } from '../components/Error';
 import { ImagesQueryResponse } from './api/images';
 
 export default function Home(): JSX.Element {
-  const fetchImages = async ({
-    pageParam = null,
-  }): Promise<ImagesQueryResponse> => {
+  const fetchImages = async ({ pageParam = null }): Promise<any> => {
     const response = await api.get('api/images', {
       params: {
         after: pageParam,
@@ -36,14 +34,28 @@ export default function Home(): JSX.Element {
   const formattedData = useMemo(() => {
     const flattenedData = data?.pages.flat()[0].data;
 
-    return flattenedData.map(({ data: dataQuery, ts, ref }) => ({
-      title: dataQuery.title,
-      description: dataQuery.description,
-      url: dataQuery.url,
+    console.log(flattenedData);
+
+    // return flattenedData?.map(({ data: dataQuery, ts, ref }) => ({
+    //   title: dataQuery?.title,
+    //   description: dataQuery?.description,
+    //   url: dataQuery?.url,
+    //   ts,
+    //   id: ref?.id,
+    // }));
+
+    if (!flattenedData) return [];
+
+    return flattenedData.map(({ title, description, url, ts, id }) => ({
+      title,
+      description,
+      url,
       ts,
-      id: ref.id,
+      id,
     }));
   }, [data]);
+
+  console.log('formattedData', formattedData);
 
   if (isLoading) return <Loading />;
 
