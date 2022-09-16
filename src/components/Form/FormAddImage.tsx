@@ -84,8 +84,8 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
 
       await mutation.mutateAsync({
         url: imageUrl,
-        title: data.imageTitle as string,
-        description: data.imageDescription as string,
+        title: data.title as string,
+        description: data.description as string,
       });
 
       toast({
@@ -126,14 +126,14 @@ export function FormAddImage({ closeModal }: FormAddImageProps): JSX.Element {
 
         <TextInput
           placeholder="Título da imagem..."
-          error={errors.imageTitle as any}
-          {...register('imageTitle', formValidations.title)}
+          error={errors.title as any}
+          {...register('title', formValidations.title)}
         />
 
         <TextInput
           placeholder="Descrição da imagem..."
-          error={errors.imageDescription as any}
-          {...register('imageDescription', formValidations.description)}
+          error={errors.description as any}
+          {...register('description', formValidations.description)}
         />
       </Stack>
 
